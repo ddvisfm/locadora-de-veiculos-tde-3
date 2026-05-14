@@ -1,8 +1,8 @@
 <?php
-require_once 'dao/ReservaDAO.php';
-require_once 'dao/VeiculoDAO.php';
-require_once 'dao/ClienteDAO.php';
-require_once 'config/Helpers.php';
+require_once __DIR__ . '/../dao/ReservaDAO.php';
+require_once __DIR__ . '/../dao/VeiculoDAO.php';
+require_once __DIR__ . '/../dao/ClienteDAO.php';
+require_once __DIR__ . '/../config/Helpers.php';
 
 class ReservaController {
 

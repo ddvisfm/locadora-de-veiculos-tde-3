@@ -1,6 +1,6 @@
 <?php
-require_once 'dao/VeiculoDAO.php';
-require_once 'config/Helpers.php';
+require_once __DIR__ . '/../dao/VeiculoDAO.php';
+require_once __DIR__ . '/../config/Helpers.php';
 
 class VeiculoController {
     public function salvar($placa, $marca, $modelo, $ano, $categoria, $valorDaDiaria, $status) {
@@ -32,5 +32,9 @@ class VeiculoController {
 
     public function buscarDisponiveis($dataRetirada, $dataDevolucao) {
         return (new VeiculoDAO())->buscarDisponiveis($dataRetirada, $dataDevolucao);
+    }
+
+    public function buscarDisponiveisSemData() {
+        return (new VeiculoDAO())->buscarDisponiveisSemData();
     }
 }

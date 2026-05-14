@@ -1,6 +1,3 @@
--- Schema da Locadora (nomes em português)
--- Dica: se você estiver com tabelas antigas, esse script recria tudo do zero.
-
 DROP DATABASE IF EXISTS locadora;
 CREATE DATABASE locadora
   DEFAULT CHARACTER SET utf8mb4
@@ -8,7 +5,6 @@ CREATE DATABASE locadora
 
 USE locadora;
 
--- Remove tabelas antigas (português e inglês), caso existam
 DROP TABLE IF EXISTS reservas;
 DROP TABLE IF EXISTS clientes;
 DROP TABLE IF EXISTS veiculos;

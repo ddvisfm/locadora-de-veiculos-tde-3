@@ -1,6 +1,6 @@
 <?php
-require_once 'controller/ClienteController.php';
-require_once 'config/Helpers.php';
+require_once __DIR__ . '/controller/ClienteController.php';
+require_once __DIR__ . '/config/Helpers.php';
 
 $controller = new ClienteController();
 $msg = '';
@@ -13,9 +13,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $contato = trim($_POST['contato'] ?? '');
         $id = $_POST['id'] ?? '';
 
-        if ($nome===''||$cpf===''||$cnh===''||$contato==='') throw new Exception('Preencha todos os campos.');
-        $cpf_digits = preg_replace('/\D+/', '', $cpf);
-        if (strlen($cpf_digits) !== 11) throw new Exception('CPF inválido (11 dígitos).');
+        if ($nome === '' || $cpf === '' || $cnh === '' || $contato === '') {
+            throw new Exception('Preencha todos os campos.');
+        }
+
+        if (strlen($nome) < 3) {
+            throw new Exception('Nome inválido. Informe pelo menos 3 caracteres.');
+        }
+
+        if (!cpf_valido($cpf)) {
+            throw new Exception('CPF inválido.');
+        }
+
+        if (!cnh_valida($cnh)) {
+            throw new Exception('CNH inválida. Informe 11 dígitos.');
+        }
+
+        if (!telefone_valido($contato)) {
+            throw new Exception('Contato inválido. Informe telefone com DDD, com 10 ou 11 dígitos.');
+        }
+
+        $cpf = formatar_cpf($cpf);
+        $cnh = somente_digitos($cnh);
+        $contato = formatar_telefone($contato);
 
         if (($_POST['acao'] ?? '') === 'salvar') {
             if ($id) {
@@ -44,7 +64,7 @@ if (isset($_GET['deletar'])) {
     }
 }
 
-require_once 'view/form_cliente.php';
+require_once __DIR__ . '/view/form_cliente.php';
 
 if ($msg) echo "<div class='msg'>".h($msg)."</div>";
 

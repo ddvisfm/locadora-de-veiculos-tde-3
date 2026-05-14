@@ -1,8 +1,8 @@
 <?php
-require_once 'controller/ReservaController.php';
-require_once 'controller/VeiculoController.php';
-require_once 'controller/ClienteController.php';
-require_once 'config/Helpers.php';
+require_once __DIR__ . '/controller/ReservaController.php';
+require_once __DIR__ . '/controller/VeiculoController.php';
+require_once __DIR__ . '/controller/ClienteController.php';
+require_once __DIR__ . '/config/Helpers.php';
 
 $controller = new ReservaController();
 $vController = new VeiculoController();
@@ -59,7 +59,7 @@ if (isset($_GET['deletar'])) {
     catch (Exception $e) { $msg = "Erro: ".$e->getMessage(); }
 }
 
-require_once 'view/form_reserva.php';
+require_once __DIR__ . '/view/form_reserva.php';
 
 if ($msg) echo "<div class='msg'>".h($msg)."</div>";
 

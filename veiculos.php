@@ -1,6 +1,6 @@
 <?php
-require_once 'controller/VeiculoController.php';
-require_once 'config/Helpers.php';
+require_once __DIR__ . '/controller/VeiculoController.php';
+require_once __DIR__ . '/config/Helpers.php';
 
 $controller = new VeiculoController();
 $msg = '';
@@ -12,14 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $modelo = trim($_POST['modelo'] ?? '');
         $ano = (int)($_POST['ano'] ?? 0);
         $categoria = $_POST['categoria'] ?? 'economico';
-        $valor_diaria_txt = $_POST['valor_diaria'] ?? '0';
-        $valorDaDiaria = (float)str_replace(',', '.', $valor_diaria_txt);
+        $valor_diaria_txt = $_POST['valor_diaria'] ?? '';
+        $valorDaDiaria = normalizar_preco($valor_diaria_txt);
         $status = $_POST['status'] ?? 'ativo';
 
         if ($placa===''||$marca===''||$modelo==='') throw new Exception('Placa, marca e modelo são obrigatórios.');
         if ($ano<1900 || $ano>((int)date('Y')+1)) throw new Exception('Ano inválido.');
         if (!in_array($categoria,['economico','sedan','suv'],true)) throw new Exception('Categoria inválida.');
-        if ($valorDaDiaria<=0) throw new Exception('Valor da diária deve ser maior que zero.');
         if (!in_array($status,['ativo','manutencao'],true)) throw new Exception('Status inválido.');
 
         $id = $_POST['id'] ?? '';
@@ -51,7 +50,7 @@ if (isset($_GET['deletar'])) {
     }
 }
 
-require_once 'view/form_veiculo.php';
+require_once __DIR__ . '/view/form_veiculo.php';
 
 if ($msg) echo "<div class='msg'>".h($msg)."</div>";
 
@@ -65,7 +64,7 @@ foreach ($veiculos as $v) {
     echo "<td>".h($v->getMarca().' '.$v->getModelo())."</td>";
     echo "<td>".h((string)$v->getAno())."</td>";
     echo "<td>".h(rotulo_categoria($v->getCategoria()))."</td>";
-    echo "<td>R$ ".h((string)$v->getValorDaDiaria())."</td>";
+    echo "<td>R$ ".h(formatar_preco($v->getValorDaDiaria()))."</td>";
     echo "<td>".h(rotulo_status_veiculo($v->getStatus()))."</td>";
     echo "<td>";
     echo "<a href='?editar=".$v->getId()."'>Editar</a> | ";

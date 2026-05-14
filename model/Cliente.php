@@ -18,14 +18,14 @@ class Cliente {
     public function setId($id) { $this->id = $id; }
 
     public function getNome() { return $this->nome; }
-    public function setNome($v) { $this->nome = $v; }
+    public function setNome($c) { $this->nome = $c; }
 
     public function getCpf() { return $this->cpf; }
-    public function setCpf($v) { $this->cpf = $v; }
+    public function setCpf($c) { $this->cpf = $c; }
 
     public function getCnh() { return $this->cnh; }
-    public function setCnh($v) { $this->cnh = $v; }
+    public function setCnh($c) { $this->cnh = $c; }
 
     public function getContato() { return $this->contato; }
-    public function setContato($v) { $this->contato = $v; }
-}
+    public function setContato($c) { $this->contato = $c; }
+}   

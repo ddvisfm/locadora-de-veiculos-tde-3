@@ -1,6 +1,6 @@
 <?php
-require_once 'dao/ClienteDAO.php';
-require_once 'config/Helpers.php';
+require_once __DIR__ . '/../dao/ClienteDAO.php';
+require_once __DIR__ . '/../config/Helpers.php';
 
 class ClienteController {
     public function salvar($nome, $cpf, $cnh, $contato) {
